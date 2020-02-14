@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Linking, TouchableOpacity, StyleSheet } from 'react-native';
+import { Button, Appbar } from 'react-native-paper';
 
 import Filial from '../components/Filial';
 
@@ -18,22 +19,40 @@ export default function Detalhes( {navigation} ) {
         Linking.openURL(url);
     } 
 
+    function voltar(){
+        navigation.navigate('Lista');
+    }
+
     return (
         <>
-            <Filial filial={navigation.state.params.filial} />
-            <TouchableOpacity onPress={abrirMapa} style={styles.button}>
-                <Text style={styles.buttonText}>Ver no mapa</Text>
-            </TouchableOpacity>
+            <Appbar.Header>
+                <Appbar.BackAction
+                    onPress={voltar}
+                />
+                <Appbar.Content
+                    title={navigation.state.params.filial.nome}
+                />
+            </Appbar.Header>
+            <View style={styles.detalhes}>
+            
+                <Filial filial={navigation.state.params.filial} />
+                <Button mode='contained' onPress={abrirMapa}>
+                    Ver no mapa
+                </Button>
+            </View>
         </>
+        
         );
 }
 
 const styles = StyleSheet.create({
-    button: {
-        height: 42,
-        backgroundColor: '#f05a5b',
+    detalhes:{
+        alignSelf: 'stretch',
+        paddingHorizontal: 30,
+        marginBottom: 30,
+        flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 2,
+        alignItems: 'center'
     },
+    
 });

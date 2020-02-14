@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, AsyncStorage,KeyboardAvoidingView, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { View, AsyncStorage,KeyboardAvoidingView, StyleSheet} from 'react-native';
+import { TextInput, Button, Text } from 'react-native-paper';
 
 import api from '../services/api';
 
@@ -58,9 +59,13 @@ export default function Login({ navigation }) {
                     onChangeText={setSenha}
                 />
 
-                <TouchableOpacity onPress={handleSubmit} style={styles.button}>
+                {/* <TouchableOpacity onPress={handleSubmit} style={styles.button}>
                     <Text style={styles.buttonText}>Entrar</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
+                <Button mode='contained' onPress={handleSubmit}>
+                    Entrar
+                </Button>
+
             </View>
         </KeyboardAvoidingView>
     );

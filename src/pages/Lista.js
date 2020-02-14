@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { SafeAreaView, StyleSheet, AsyncStorage, Text, TouchableOpacity, View, TextInput, Dimensions } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { SearchBar } from 'react-native-elements';
+import { Searchbar, List, Divider, Appbar } from 'react-native-paper';
 
 import api from '../services/api';
 
@@ -38,27 +38,38 @@ export default function Lista({ navigation }) {
 
     };
 
+    function logout(){
+        AsyncStorage.removeItem('token').then(navigation.navigate('Login'));
+    }
+
     return (
         <SafeAreaView style={styles.container}>
+            <Appbar.Header>
+                <Appbar.Content
+                title="Lista de filiais"
+                />
+                <Appbar.Action icon="logout" onPress={logout} />
+            </Appbar.Header>
             
             <FlatList 
                 data={list}
                 keyExtractor={item => item.id.toString()}
                 ListHeaderComponent={
-                    <SearchBar 
+                    <Searchbar 
                         placeholder="Buscar filial" 
-                        lightTheme round
                         onChangeText={updateSearch}
                         value={search} 
                     />
                 }
-                renderItem={ ({ item }) => 
-                <TouchableOpacity onPress={() => {navigation.navigate('Detalhes', {filial: item});}}>
-                    <Text style={styles.item}>
-                        {item.nome}
-                    </Text>
-                </TouchableOpacity>
-                
+                renderItem={ ({ item }) =>
+                    <> 
+                        <List.Item
+                            titleStyle={styles.item}
+                            title={item.nome}
+                            onPress={() => {navigation.navigate('Detalhes', {filial: item});}}
+                        />
+                        <Divider />
+                    </>
                 }
             />
         </SafeAreaView>
@@ -67,17 +78,13 @@ export default function Lista({ navigation }) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        marginTop: 50
+        flex: 1
     },
     item: {
         fontWeight: 'bold',
         color: '#444',
-        marginBottom: 8,
-        backgroundColor: '#ddd',
-        padding: 20,
-        marginVertical: 8,
-        marginHorizontal: 10,
+        marginBottom: 3,
+        marginVertical: 3,
       },
     button: {
         height: 42,
