@@ -9,7 +9,7 @@ export default function Detalhes( {navigation} ) {
     function abrirMapa(){
         const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
         const latLng = `${navigation.state.params.filial.latitude},${navigation.state.params.filial.longitude}`;
-        const label = 'Custom Label';
+        const label = `${navigation.state.params.filial.nome}`;
         const url = Platform.select({
         ios: `${scheme}${label}@${latLng}`,
         android: `${scheme}${latLng}(${label})`
